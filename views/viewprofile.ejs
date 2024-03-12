@@ -1,0 +1,89 @@
+<% include ./partials/header.ejs %>
+  <div class="w-full min-h-screen bg-zinc-900 text-white py-3">
+     <div style="border-bottom:0.5px solid #444;" class="w-full h-11 z-10 relative py-2 items-center flex justify-center">
+       <a class="ri-arrow-left-s-line absolute text-[1.4rem] left-1" href="/feed">
+       
+       </a>
+        <h3 class="text-center text-sm-5"><%=user.username%></h3>
+     </div>
+      <div class="flex  justify-between items-center pl-3 pr-[10vw] mt-3">
+        <div class="w-[19vw] h-[19vw] bg-sky-100 rounded-full overflow-hidden">
+          <img class="h-full w-full object-cover object-center" src="/images/uploads/<%=user.profileimg%>" alt="">
+        </div>
+        <div class="stats px-2 pb-2 w-56  h-18 flex gap-5   items-start justify-evenly flex-col ">
+            <h3 class="text-xl flex items-end gap-5"><%=user.username%> <span ><svg aria-label="More options" class="x1lliihq x1n2onr6 x5n08af" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24"><title>More options</title><circle cx="12" cy="12" r="1.5"></circle><circle cx="6" cy="12" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle></svg>   </span></h3>
+            <div class="">
+              <%if(logedinuser.following.indexOf(user._id) === - 1){%>
+                <button id="btn" class="px-4 rounded-md py-1 bg-blue-500 text-sm">Follow</button>
+              <%}else{%>
+                <button id="btn" class="px-4 rounded-md py-1 bg-blue-500 text-sm">Unfollow</button>
+             <% }%>
+             <!-- <button id="btn" class="px-4 rounded-md py-1 bg-blue-500 text-sm">Follow</button> -->
+                <button class="px-4 rounded-md py-1 bg-zinc-800 text-sm">Message</button>
+            </div>
+        </div>
+      </div>
+      <div class="dets px-5 mt-2">
+        <h3 class="text-base font-medium mb-1">
+           <%=user.name%>
+        </h3>
+        <p class="text-xs tracking-tight opacity-50">
+          <%=user.bio?? "[No bio yet]" %>
+        </p>
+      </div>
+      
+     <div style="border-bottom: 0.5px solid #333; border-top:0.5px solid #333 ;" class="w-full flex items-center justify-center gap-12 h-14 mt-3 py-1">
+        <div class="w-1/6 h-full flex flex-col items-center ">
+            <h3 id="posts" class="text-base"><%=user.posts.length%></h3>
+            <h4 class="text-sm text-zinc-300">posts</h4>
+        </div>
+        <div class="w-1/6 h-full flex flex-col items-center ">
+            <h3 id="follower" class="text-base"><%=user.followers.length%></h3>
+            <h4  class="text-sm text-zinc-300">followers</h4>
+        </div>
+        <div class="w-1/6 h-full flex flex-col items-center ">
+            <h3 id="following" class="text-base"><%=user.following.length%></h3>
+            <h4 class="text-sm text-zinc-300">following</h4>
+        </div>
+        
+     </div>
+      
+      <div class=" posts w-full flex justify-start gap-1 py-2 px-1 mt-3 flex-wrap">
+        <%if(user.posts.length > 0){%>
+            <%user.posts.forEach(function(post){%>
+                <div class="post w-[32.5%] h-32 bg-sky-100">
+                    <img class="w-full h-full object-cover object-center" src="/images/uploads/<%=post.image%>" alt="">
+                  </div>
+               <%})%>
+      <% }else{%>
+        <small class="w-full text-sm mt-5 opacity-20 text-center">No posts</small>
+      <%} %>
+  
+       
+       
+      </div>
+      
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js" integrity="sha512-b94Z6431JyXY14iSXwgzeZurHHRNkLt9d6bAHt7BZT38eqV+GyngIi/tVye4jBKPYQ2lBdRs0glww4fmpuLRwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+  var btn =  document.getElementById("btn")   
+  btn.addEventListener("click", function(){
+    axios.get(`/follow/<%=user._id%>`)
+    .then(function(res){
+     console.log(res.data);
+     var dets = document.getElementById("follower")
+     var det1 = document.getElementById("following")
+     var det2 = document.getElementById("posts")
+     dets.innerHTML = res.data.followers.length
+
+    })
+
+    if (btn.innerText === 'Follow') {
+                    btn.innerText = 'Unfollow';
+                } else {
+                    btn.innerText = 'Follow';
+                }
+  
+  })
+  </script>
+<% include ./partials/footer.ejs %>

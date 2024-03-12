@@ -1,0 +1,36 @@
+{
+  "name": "insta",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "build:styles": "postcss public/stylesheets/style.css -o public/stylesheets/build.css"
+  },
+  "dependencies": {
+    "cloudinary": "^1.41.3",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dot-env": "^0.0.1",
+    "dotenv": "^16.4.5",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-session": "^1.18.0",
+    "http-errors": "~1.6.3",
+    "mongo": "^0.1.0",
+    "mongodb": "^6.4.0",
+    "mongoose": "^8.2.1",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "multer-gridfs-storage": "^5.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  }
+}
